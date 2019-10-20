@@ -26,7 +26,7 @@ public class T1 {
         System.out.print("Texto: ");
         String texto = lectura.nextLine();
         
-        ResetearER reset = new ResetearER (er, texto);
+        Reescribir reset = new Reescribir (er, texto);
         
         System.out.println("");
         System.out.println("Expresiones: ");
