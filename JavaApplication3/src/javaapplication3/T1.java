@@ -5,6 +5,8 @@
  */
 package javaapplication3;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Camila Gavilán
@@ -16,8 +18,32 @@ public class T1 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Scanner lectura = new Scanner(System.in);
         
+        System.out.print("Expresion regular: ");
+        String er = lectura.nextLine();
         
+        System.out.print("Texto: ");
+        String texto = lectura.nextLine();
+        
+        ResetearER reset = new ResetearER (er, texto);
+        
+        System.out.println("");
+        System.out.println("Expresiones: ");
+        int n=0;
+        while (reset.getLineas().length>n){
+            System.out.println(n+": "+reset.getLineas()[n]);
+            n++;
+        }
+        System.out.println("");
+        
+        System.out.println("Completo: "+reset.getStringCompleto());
+        System.out.println("Posiciones: ");
+        for (int i = 0; i < reset.getPosicionesCadaLinea().size(); i++) {
+            System.out.println("Impeimir posicionesCadaLinea: "+reset.getPosicionesCadaLinea().get(i));
+        }
+        
+    
         
     }
     
