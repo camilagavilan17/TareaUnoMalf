@@ -13,7 +13,7 @@ import java.util.List;
  * @author pablo
  */
 public class Reescribir {
-    
+    String [] expresiones;
     String [] lineas; //strings separados por "-"
     String completo =""; //un unico string sin el "-"
     List <Integer> posicionesCadaLinea = new ArrayList<>(); //largo de cada linea separada
@@ -37,7 +37,12 @@ public class Reescribir {
     }
 
     public Reescribir(String er, String texto) {
+        this.expresiones = er.split("c");
+        for (int i = 0; i < expresiones.length; i++) {
+            System.out.println("AAA: "+expresiones[i]+" i: "+i);
+        }
         int n=0;
+        /*
         int cant=0;
         while (er.length()>n){  //separar string de "-"
             if (er.charAt(n)=='-'){
@@ -45,8 +50,11 @@ public class Reescribir {
             }
             n++;
         }
+        */
         this.lineas = texto.split("-"); //guardamos cada linea del texto inicial en "lineas"
-        
+        for (int i = 0; i < lineas.length; i++) {
+            System.out.println("BBB: "+lineas[i]+" i: "+i);
+        }
         n=0;
         while (lineas.length>n){ //unir cada linea en un solo String... "completo"
             completo+=lineas[n];
@@ -69,13 +77,21 @@ public class Reescribir {
             System.out.println("Imprimir posicionesCompleto: "+posicionesCompleto.get(i));
         }
         String corte;
-        int largoER = er.length();
-        //cortamos el string completo para ver la relacion con la expresion regular ("er")
-        for (int i = 0; i < (completo.length()-largoER+1); i++) {
-            corte = completo.substring(i, i+largoER);
-            if (corte.equals(er)){
-                ocurrencias.add(i+largoER);
-                System.out.println("OCURRENCIA: "+(i+largoER));
+        int largoER;
+        
+        for (int i = 0; i < expresiones.length; i++) {
+            largoER = expresiones[i].length();
+            System.out.println("Largoooooo "+largoER);
+            System.out.println("LA EXPRESION DE BUSQUEDA ES "+expresiones[i]);
+            //cortamos el string completo para ver la relacion con la expresion regular ("er")
+            for (int j = 0; j < (completo.length()-largoER+1); j++) {
+                
+                corte = completo.substring(j, j+largoER);
+                System.out.println("Corte "+corte);
+                if (corte.equals(expresiones[i])){
+                    ocurrencias.add(j+largoER);
+                    System.out.println("Expresion: "+i+" --- OCURRENCIA: "+(j+largoER));
+                }
             }
         }
         /*
@@ -93,5 +109,22 @@ public class Reescribir {
         }
         */
         
+    }
+    
+    public boolean revisarExpresion (String expresion){
+        int n=0;
+        boolean valido=true;
+        while (expresion.length()>n){  //separar string de "-"
+            if (n%2==0 && expresion.charAt(n)=='.' && expresion.charAt(n)=='|' 
+                    && expresion.charAt(n)=='*' && expresion.charAt(n)=='_' && expresion.charAt(n)=='0'){
+                valido = false;
+            }
+            else if (n%2==1 && expresion.charAt(n)!='.' && expresion.charAt(n)!='|' 
+                    && expresion.charAt(n)!='*' && expresion.charAt(n)!='_' && expresion.charAt(n)!='0'){
+                valido = false;
+            }
+            n++;
+        }
+        return valido;
     }
 }
